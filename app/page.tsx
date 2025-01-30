@@ -3,12 +3,18 @@
 import { useState, useRef } from "react"
 import TextInput from "./components/TextInput"
 import MemePreview from "./components/MemePreview"
+import ImageUploader from "./components/ImageUploader"
 
-const PLACEHOLDER_IMAGE = "https://picsum.photos/800/600"
+const PLACEHOLDER_IMAGE = "/uploads/placeholder.jpg"
 
 export default function MemeGenerator() {
+  const [backgroundImage, setBackgroundImage] = useState(PLACEHOLDER_IMAGE)
   const [texts, setTexts] = useState<{ id: number; text: string; x: number; y: number }[]>([])
   const memePreviewRef = useRef<{ exportMeme: () => void } | null>(null)
+
+  const handleImageUpload = (imageUrl: string) => {
+    setBackgroundImage(imageUrl)
+  }
 
   const handleAddText = () => {
     setTexts([...texts, { id: Date.now(), text: "New Text", x: 50, y: 50 }])
@@ -33,6 +39,7 @@ export default function MemeGenerator() {
       <h1 className="text-3xl font-bold mb-4">Meme Generator</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
+          <ImageUploader onImageUpload={handleImageUpload} />
           <button onClick={handleAddText} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
             Add Text
           </button>
@@ -46,7 +53,7 @@ export default function MemeGenerator() {
         <div>
           <MemePreview
             ref={memePreviewRef}
-            backgroundImage={PLACEHOLDER_IMAGE}
+            backgroundImage={backgroundImage}
             texts={texts}
             onMoveText={handleMoveText}
           />
