@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
   try {
     // Create bucket if it doesn't exist using admin client
-    const { data: bucketData, error: bucketError } = await supabaseAdmin
+    const { error: bucketError } = await supabaseAdmin
       .storage
       .createBucket('memes', {
         public: true,
