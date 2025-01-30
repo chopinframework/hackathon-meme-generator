@@ -90,6 +90,9 @@ const MemePreview = forwardRef<{ exportMeme: () => void }, MemePreviewProps>(
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
 
+      // If there are no texts, don't try to find the closest one
+      if (texts.length === 0) return
+
       // Find the closest text to the click position
       const closestText = texts.reduce((closest, current) => {
         const distanceToCurrent = Math.sqrt((current.x - x) ** 2 + (current.y - y) ** 2)
