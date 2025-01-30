@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, type React } from "react"
+import { useState } from "react"
+import type { ChangeEvent } from "react"
 
 interface ImageUploaderProps {
   onImageUpload: (imageUrl: string) => void
@@ -9,7 +10,7 @@ interface ImageUploaderProps {
 export default function ImageUploader({ onImageUpload }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false)
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (!file) return
 
